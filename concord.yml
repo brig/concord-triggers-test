@@ -14,8 +14,8 @@ triggers:
   - github:
       entryPoint: default2
       type: "push"
-      githubOrg: "vn0tj0b"
-      githubRepo: "concord-hello-world"
+      githubOrg: "brig"
+      githubRepo: "concord-triggers-test"
       #githubHost: ""
       #branch: "master"
       #author: "vasia"
