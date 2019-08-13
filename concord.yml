@@ -3,6 +3,7 @@ flows:
   - log: "Hello, 1"
   default2:
   - log: "Hello, 2"
+  - log: "event: ${event}"
   default3:
   - log: "Hello, 3"
 
@@ -19,5 +20,3 @@ triggers:
       #githubHost: ""
       #branch: "master"
       #author: "vasia"
-
-
