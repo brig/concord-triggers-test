@@ -1,0 +1,21 @@
+flows:
+  default:
+  - log: "Hello, 1"
+  default2:
+  - log: "Hello, 2"
+  default3:
+  - log: "Hello, 3"
+
+configuration:
+  arguments:
+    name: "Concord"
+
+triggers:
+  - github:
+      entryPoint: default2
+      type: "push"
+      githubOrg: "vn0tj0b"
+      githubRepo: "concord-hello-world"
+      #githubHost: ""
+      #branch: "master"
+      #author: "vasia"
