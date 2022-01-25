@@ -1,29 +1,14 @@
-flows:
-  default:
-  - log: "Hello, 1"
-  - log: "syncForm: ${syncForm}"
-  
-  default2:
-  - log: "Hello, 2"
-  - log: "event: ${event}"
-  default3:
-  - log: "Hello, 3"
-
-forms:
-  syncForm:
-    - uploadFile: { label: "Upload secure file, eg: GCP json or Hadoop Keytab", type: "file" }
-
 configuration:
-  arguments:
-    name: "Concord"
+  runtime: concord-v2
+  
+flows:
+  onCron:
+  - log: "Cron"
+
 
 triggers:
-  - github:
-      entryPoint: default2
-      type: "push"
-      githubOrg: "brig"
-      githubRepo: "concord-triggers-test"
-      #githubHost: ""
-      #branch: "master"
-      #author: "vasia"
-
+  - cron:
+      spec: "* * * * *"
+      entryPoint: onCron
+      runAs:
+         secret: "name"
