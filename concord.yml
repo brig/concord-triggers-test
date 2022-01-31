@@ -3,7 +3,7 @@ configuration:
   
 flows:
   onCron:
-  - log: "Cron"
+  - log: "initiator: ${initiator}"
 
 
 triggers:
