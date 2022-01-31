@@ -11,4 +11,4 @@ triggers:
       spec: "* * * * *"
       entryPoint: onCron
       runAs:
-         withSecret: "test-run-as"
+         withSecret: "test-run-as-err"
