@@ -11,6 +11,8 @@ triggers:
     conditions:
       type: "push"
       branch: "master"
+      githubOrg: ".*"
+      githubRepo: ".*"
       files:
         modified:
           - "kitt.yml"
