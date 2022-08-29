@@ -3,7 +3,7 @@ flows:
     - log: "Hello, 1"
   
   registerKittRepoifNeeded:
-    - log: "kitt, ${event.repository.fullName}"
+    - log: "kitt, ${event.payload.repository.fullName}"
     
 triggers:
 - github:
