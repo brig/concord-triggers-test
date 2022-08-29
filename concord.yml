@@ -4,6 +4,7 @@ flows:
   
   registerKittRepoifNeeded:
     - log: "kitt, ${event.payload.repository.full_name}"
+    - log: "kitt, ${event.payload.repository.url}"
     
 triggers:
 - github:
