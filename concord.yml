@@ -2,17 +2,17 @@ flows:
   default:
     - log: "Hello, 1"
   
-  onKittUpdate:
-    - log: "kitt update, ${event}"
+  registerKittRepoifNeeded:
+    - log: "kitt, ${event}"
     
 triggers:
 - github:
-    entryPoint: "onKittUpdate"
+    entryPoint: "registerKittRepoifNeeded"
     conditions:
       type: "push"
       branch: ".*"
       githubOrg: ".*"
       githubRepo: ".*"
       files:
-        modified:
+        added:
           - "kitt.yml"
