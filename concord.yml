@@ -10,7 +10,7 @@ triggers:
     entryPoint: "onKittUpdate"
     conditions:
       type: "push"
-      branch: "master"
+      branch: ".*"
       githubOrg: ".*"
       githubRepo: ".*"
       files:
