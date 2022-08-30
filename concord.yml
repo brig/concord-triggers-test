@@ -78,7 +78,7 @@ triggers:
         githubOrg: ".*"
         githubRepo: ".*"        
         content:
-          - ref: main
+          - ref: master
             path: kitt.yml
             
 # - github:
