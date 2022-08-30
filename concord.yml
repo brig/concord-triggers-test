@@ -7,6 +7,9 @@ configuration:
     apiKey: "XXX"
     
 flows:
+  onPush:
+    - log: ${event}
+    
   ensureKittRegistryRecord:
     - call: ensureRegistryRecord
       in:
@@ -67,13 +70,23 @@ flows:
         - log: "Repository ${githubRepoName} exists in registry ${org}/${project}"    
     
 triggers:
-- github:
-    entryPoint: "ensureKittRegistryRecord"
-    conditions:
-      type: "push"
-      branch: ".*"
-      githubOrg: ".*"
-      githubRepo: ".*"
-      files:
-        added:
-          - "kitt.yml"
+  - github:
+      entryPoint: onPush
+      conditions:
+        type: push
+        githubOrg: ".*"
+        githubRepo: ".*"        
+        content:
+          - ref: main
+            path: kitt.yml
+            
+# - github:
+#     entryPoint: "ensureKittRegistryRecord"
+#     conditions:
+#       type: "push"
+#       branch: ".*"
+#       githubOrg: ".*"
+#       githubRepo: ".*"
+#       files:
+#         added:
+#           - "kitt.yml"
