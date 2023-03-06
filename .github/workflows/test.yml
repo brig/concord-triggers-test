@@ -1,0 +1,10 @@
+name: test
+
+on: repository_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: echo "BOOM"
