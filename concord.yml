@@ -1,93 +1,16 @@
 configuration:
   runtime: concord-v2
-  arguments:
-    full_name: "brig/concord-triggers-test"
 
-    concordUrl: "http://localhost:8001/"
-    apiKey: "XXX"
-    
 flows:
   onPush:
     - log: ${event}
-    
-  ensureKittRegistryRecord:
-    - call: ensureRegistryRecord
-      in:
-        org: "Default"
-        project: "test"
-        githubRepoName: "${event.payload.repository.full_name}"
-        githubRepoUrl: "${event.payload.repository.url}"
-         
-  ##
-  # Creates repository record if it does not exists
-  #
-  # global:
-  #   concordUrl
-  #   apiKey
-  # in:
-  #   org - concord organization name for registry project
-  #   project - concord project name for registry project
-  #   githubRepoName - full github repostiory name
-  #   githubRepoUrl - github repository URL
-  ensureRegistryRecord:
-    - set:
-        repo: "${githubRepoName.replace('/', '_')}" # TODO: registry per github org?
 
-    # TODO: create task for repo operations
-    - task: http
-      in:
-        method: GET
-        url: "${String.format(concordUrl += 'api/v1/org/%s/project/%s/repository/%s', org, project, repo)}"
-        headers:
-          Authorization: "${apiKey}"
-        response: json
-        debug: true
-      out: getRepoResponse
-
-    - if: ${getRepoResponse.statusCode != 200}
-      then:
-        - log: "Repository ${githubRepoName} not exists in registry ${org}/${project}"
-
-        - task: http
-          in:
-            request: json
-            method: POST
-            url: "${String.format(concordUrl += 'api/v1/org/%s/project/%s/repository', org, project)}"
-            headers:
-              Authorization: "${apiKey}"
-            body:
-              name: ${repo}
-              url: ${githubRepoUrl}
-              branch: "main"
-              triggersDisabled: true
-            response: json
-          out: createRepoResponse
-
-        - if: ${createRepoResponse.ok}
-          then:
-            - log: "Registry record created for ${githubRepoUrl}"
-      else:
-        - log: "Repository ${githubRepoName} exists in registry ${org}/${project}"    
-    
 triggers:
   - github:
       entryPoint: onPush
       version: 2
       conditions:
         type: push
-        githubOrg: ".*"
-        githubRepo: ".*"        
-        content:
-          - ref: master
-            path: kitt.yml
-            
-# - github:
-#     entryPoint: "ensureKittRegistryRecord"
-#     conditions:
-#       type: "push"
-#       branch: ".*"
-#       githubOrg: ".*"
-#       githubRepo: ".*"
-#       files:
-#         added:
-#           - "kitt.yml"
+        files:
+          modified:
+            - "components/.*"
