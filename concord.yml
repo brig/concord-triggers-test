@@ -3,7 +3,7 @@ configuration:
 
 flows:
   onPush:
-    - log: ${event}
+    - log: "${resource.prettyPrintYaml(event)}"
 
 triggers:
   - github:
