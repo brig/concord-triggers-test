@@ -3,6 +3,9 @@ configuration:
 
 flows:
   onPush:
+    - name: "Modified files"
+      log: "${event.files.modified}"
+      
     - name: "Github Event"
       log: "${resource.prettyPrintYaml(event)}"
 
