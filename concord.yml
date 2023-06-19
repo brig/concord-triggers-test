@@ -13,7 +13,7 @@ triggers:
   - github:
       entryPoint: onPush
       version: 2
-      conditions1:
+      conditions:
         type: push
         files:
           modified:
