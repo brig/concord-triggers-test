@@ -15,6 +15,6 @@ triggers:
       version: 2
       conditions:
         type: push
-        files:
-          modified:
-            - "components/.*"
+        githubRepo:
+          - firstRepo
+          - secondRepo        
